@@ -1,0 +1,39 @@
+package tests.e2e;
+
+import com.codeborne.selenide.Configuration;
+import constants.Urls;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import pages.CommonPage;
+import steps.BanksAndAtmsSteps;
+import steps.CommonPageSteps;
+import steps.HomePageSteps;
+
+import java.util.HashMap;
+
+import static com.codeborne.selenide.Selenide.open;
+
+public class BaseTest {
+    CommonPageSteps commonPageSteps = new CommonPageSteps();
+    HomePageSteps homePageSteps = new HomePageSteps();
+    BanksAndAtmsSteps banksAndAtmsSteps = new BanksAndAtmsSteps();
+
+    @BeforeSuite
+    public void configureLocationRequest() {
+        var options = new ChromeOptions();
+        var prefs = new HashMap<>();
+        prefs.put("profile.default_content_setting_values.geolocation", 1);
+        options.setExperimentalOption("prefs", prefs);
+        Configuration.browserCapabilities = options;
+    }
+
+    @BeforeClass
+    public void setUp() {
+        open(Urls.HOME_PAGE_URL);
+
+        commonPageSteps
+                .verifyDenyCookiesButtonVisibility()
+                .clickOnDenyCookiesButton();
+    }
+}
