@@ -12,6 +12,7 @@ import ge.tbc.testautomation.steps.HomePageSteps;
 import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest {
     CommonPageSteps commonPageSteps = new CommonPageSteps();
@@ -30,6 +31,7 @@ public class BaseTest {
     @BeforeClass
     public void setUp() {
         open(Urls.HOME_PAGE_URL);
+        getWebDriver().manage().window().maximize();
 
         commonPageSteps
                 .verifyDenyCookiesButtonVisibility()

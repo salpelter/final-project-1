@@ -48,7 +48,8 @@ public class BanksAndAtmsSteps {
                 // actually the correct marker is highlighted
                 if (getHighlightedBlocks().size() == 1) {
                     // this function is the only feasible way of verification that i found,
-                    // unfortunately it makes it necessary to be call twice, which affects time
+                    // unfortunately it makes it necessary to be call twice (which affects time),
+                    // necessary for the purposes of readability and modularity
                     break;
                 }
             }
