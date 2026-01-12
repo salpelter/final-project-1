@@ -1,6 +1,6 @@
-package steps;
+package ge.tbc.testautomation.steps;
 
-import pages.HomePage;
+import ge.tbc.testautomation.pages.HomePage;
 
 import java.time.Duration;
 

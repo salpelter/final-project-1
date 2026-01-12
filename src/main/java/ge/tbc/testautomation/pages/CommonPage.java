@@ -1,4 +1,4 @@
-package pages;
+package ge.tbc.testautomation.pages;
 
 import com.codeborne.selenide.SelenideElement;
 

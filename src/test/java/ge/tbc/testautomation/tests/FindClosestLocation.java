@@ -1,4 +1,4 @@
-package tests.e2e;
+package ge.tbc.testautomation.tests;
 
 import org.testng.annotations.Test;
 

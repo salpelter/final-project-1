@@ -1,8 +1,8 @@
-package steps;
+package ge.tbc.testautomation.steps;
 
 import com.codeborne.selenide.SelenideElement;
 import org.testng.Assert;
-import pages.BanksAndAtmsPage;
+import ge.tbc.testautomation.pages.BanksAndAtmsPage;
 
 import java.time.Duration;
 import java.util.ArrayList;

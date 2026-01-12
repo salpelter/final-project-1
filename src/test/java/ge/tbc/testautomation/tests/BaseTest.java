@@ -1,14 +1,13 @@
-package tests.e2e;
+package ge.tbc.testautomation.tests;
 
 import com.codeborne.selenide.Configuration;
-import constants.Urls;
+import ge.tbc.testautomation.constants.Urls;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import pages.CommonPage;
-import steps.BanksAndAtmsSteps;
-import steps.CommonPageSteps;
-import steps.HomePageSteps;
+import ge.tbc.testautomation.steps.BanksAndAtmsSteps;
+import ge.tbc.testautomation.steps.CommonPageSteps;
+import ge.tbc.testautomation.steps.HomePageSteps;
 
 import java.util.HashMap;
 
