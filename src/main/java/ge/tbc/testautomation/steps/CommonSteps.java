@@ -1,43 +1,57 @@
 package ge.tbc.testautomation.steps;
 
+import com.codeborne.selenide.ex.ElementNotFound;
+import ge.tbc.testautomation.constants.Urls;
 import ge.tbc.testautomation.pages.CommonPage;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class CommonSteps {
     CommonPage commonPage = new CommonPage();
 
-    public CommonSteps clickOnHamburgerMenu() {
-        commonPage.mobileHamburgerMenuIcon.click();
-
-        return this;
-    }
-
-    public CommonSteps hoverOverPersonalMegaMenu() {
-        commonPage.personalMegaMenu.hover();
+    public CommonSteps openMenu(boolean isMobile) {
+        if (isMobile) {
+            commonPage.mobileHamburgerMenuIcon.shouldBe(visible).click();
+        }
+        else {
+            commonPage.personalMegaMenu.shouldBe(visible).hover();
+        }
 
         return this;
     }
 
     public CommonSteps clickOnExchangeRatesPageLink(Boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileExchangeRatesPageLink.click();
+            commonPage.mobileMegaMenuExchangeRatesLink.shouldBe(visible).click();
         }
         else {
-            commonPage.exchangeRatesPageLink.click();
+            commonPage.megaMenuExchangeRatesLink.shouldBe(visible).click();
         }
 
         return this;
     }
 
-    public CommonSteps clickOnAddressesMenuItem(Boolean isMobile) {
+    public CommonSteps clickOnAddressesPageLink(Boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileMegaMenuAddressesItem.click();
+            commonPage.mobileMegaMenuAddressesLink.shouldBe(visible).click();
         }
         else {
-            commonPage.megaMenuAddressesItem.click();
+            commonPage.megaMenuAddressesLink.shouldBe(visible).click();
+        }
+
+        return this;
+    }
+
+    public CommonSteps clickOnOffersPageLink(Boolean isMobile) {
+        if (isMobile) {
+            commonPage.mobileMegaMenuOffersLink.shouldBe(visible).click();
+        }
+        else {
+            commonPage.megaMenuOffersLink.shouldBe(visible).click();
         }
 
         return this;

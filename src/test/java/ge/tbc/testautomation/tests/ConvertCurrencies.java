@@ -2,6 +2,7 @@ package ge.tbc.testautomation.tests;
 
 import ge.tbc.testautomation.steps.ExchangeRatesSteps;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -15,16 +16,9 @@ public class ConvertCurrencies extends BaseTest {
     @Parameters("isMobile")
     @Test(priority = 1)
     public void goToExchangeRatesPage(boolean isMobile) {
-        if (isMobile) {
-            commonSteps
-                    .clickOnHamburgerMenu()
-                    .clickOnExchangeRatesPageLink(isMobile);
-        }
-        else {
-            commonSteps
-                    .hoverOverPersonalMegaMenu()
-                    .clickOnExchangeRatesPageLink(isMobile);
-        }
+        commonSteps
+                .openMenu(isMobile)
+                .clickOnExchangeRatesPageLink(isMobile);
     }
 
     @Test(priority = 2, dependsOnMethods = "goToExchangeRatesPage")

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="desktopAndMobile" thread-count="2" parallel="classes">
+<suite name="desktopAndMobile" thread-count="2" parallel="tests" group-by-instances="true">
     <test name="desktop">
-        <parameter name="isMobile" value="false"></parameter>
+        <parameter name="isMobile" value="false" />
         <classes>
-            <class name="ge.tbc.testautomation.tests.FindClosestLocation"></class>
-            <class name="ge.tbc.testautomation.tests.ConvertCurrencies"></class>
+            <class name="ge.tbc.testautomation.tests.FindNearbyLocation" />
+            <class name="ge.tbc.testautomation.tests.FindOpenBranch" />
+            <class name="ge.tbc.testautomation.tests.ConvertCurrencies" />
+            <class name="ge.tbc.testautomation.tests.ViewOffers" />
         </classes>
     </test>
 
     <test name="mobile">
-        <parameter name="isMobile" value="true"></parameter>
+        <parameter name="isMobile" value="true" />
         <classes>
-            <class name="ge.tbc.testautomation.tests.FindClosestLocation"></class>
-            <class name="ge.tbc.testautomation.tests.ConvertCurrencies"></class>
+            <class name="ge.tbc.testautomation.tests.FindNearbyLocation" />
+            <class name="ge.tbc.testautomation.tests.FindOpenBranch" />
+            <class name="ge.tbc.testautomation.tests.ConvertCurrencies" />
+            <class name="ge.tbc.testautomation.tests.ViewOffers" />
         </classes>
     </test>
 </suite>

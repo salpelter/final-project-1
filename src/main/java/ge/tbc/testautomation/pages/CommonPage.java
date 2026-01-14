@@ -11,8 +11,10 @@ public class CommonPage {
     public SelenideElement personalMegaMenu = $x("//tbcx-pw-navigation//div[text()=' ჩემთვის ']");
 
     // couldn't find a more dynamic way to grab these menu items
-    public SelenideElement exchangeRatesPageLink = $x("(//tbcx-pw-mega-menu-quick-acitons-item//span[text()=' ვალუტის კურსები'])[1]");
-    public SelenideElement mobileExchangeRatesPageLink = $x("(//tbcx-pw-mega-menu-quick-acitons-item//span[text()=' ვალუტის კურსები'])[3]");
-    public SelenideElement megaMenuAddressesItem = $x("(//a[@href='/ka/atms&branches']//span[text()=' მისამართები'])[1]");
-    public SelenideElement mobileMegaMenuAddressesItem = $x("(//a[@href='/ka/atms&branches']//span[text()=' მისამართები'])[3]");
+    public SelenideElement megaMenuExchangeRatesLink = $x("(//span[text()=' ვალუტის კურსები'])[1]");
+    public SelenideElement mobileMegaMenuExchangeRatesLink = $x("(//span[text()=' ვალუტის კურსები'])[3]");
+    public SelenideElement megaMenuAddressesLink = $x("(//span[text()=' მისამართები'])[1]");
+    public SelenideElement mobileMegaMenuAddressesLink = $x("(//span[text()=' მისამართები'])[3]");
+    public SelenideElement megaMenuOffersLink = $x("(//span[text()=' შეთავაზებები'])[1]");
+    public SelenideElement mobileMegaMenuOffersLink = $x("(//span[text()=' შეთავაზებები'])[2]");
 }
