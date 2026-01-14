@@ -1,6 +1,8 @@
 package ge.tbc.testautomation.steps;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ge.tbc.testautomation.pages.BanksAndAtmsPage;
 
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class BanksAndAtmsSteps {
@@ -23,21 +25,18 @@ public class BanksAndAtmsSteps {
     }
 
     public BanksAndAtmsSteps scrollToMap() {
-        executeJavaScript("arguments[0].scrollIntoView(true);", banksAndAtmsPage.map);
+        banksAndAtmsPage.map.shouldBe(visible);
+        executeJavaScript("arguments[0].scrollIntoView(false);", banksAndAtmsPage.map.toWebElement());
 
         return this;
     }
 
     // map marker indicates either a branch or an ATM
     public BanksAndAtmsSteps clickOnRandomVisibleMapMarker() {
-        // there may be clustered marker that needs to be expanded, hence the loop, and
-        // list on the left part of the screen may overlay a marker, hence the try-catch
+        // there may be clustered marker that needs to be expanded, hence the loop,
+        // and some other elements may overlay a marker, hence the try-catch
         while (true) {
-            var closestMapMarkers = banksAndAtmsPage.mapMarkers
-                    .asFixedIterable()
-                    .stream()
-                    .filter(el -> isInViewport(el, banksAndAtmsPage.map))
-                    .toList();
+            var closestMapMarkers = getElementsInViewport(banksAndAtmsPage.mapMarkers, banksAndAtmsPage.map);
 
             var rand = new Random();
             var marker = closestMapMarkers.get(rand.nextInt(closestMapMarkers.size()));
@@ -46,10 +45,7 @@ public class BanksAndAtmsSteps {
                 // all things that distinguish markers (like text or color) are contained in a
                 // closed shadow-root, i couldn't access it to make sure that
                 // actually the correct marker is highlighted
-                if (getHighlightedBlocks().size() == 1) {
-                    // this function is the only feasible way of verification that i found,
-                    // unfortunately it makes it necessary to be call twice (which affects time),
-                    // necessary for the purposes of readability and modularity
+                if (banksAndAtmsPage.highlightedMarkerInformationBlock.exists()) {
                     break;
                 }
             }
@@ -68,49 +64,46 @@ public class BanksAndAtmsSteps {
     }
 
     public BanksAndAtmsSteps verifyMarkerInfoHighlighted() {
-        var highlightedInfoBlocks = getHighlightedBlocks();
-
-        Assert.assertEquals(highlightedInfoBlocks.size(), 1);
+        Assert.assertTrue(banksAndAtmsPage.highlightedMarkerInformationBlock.exists());
 
         return this;
     }
 
-    // written this way just in case
-    // there's multiple highlighted blocks
-    // (there should be only one)
-    private List<SelenideElement> getHighlightedBlocks() {
-        var visibleBlocks = banksAndAtmsPage.markerInformationBlocks
-                .asFixedIterable()
+    // couldn't find a better way for checking elements
+    private List<SelenideElement> getElementsInViewport(ElementsCollection elements, SelenideElement container) {
+        List<WebElement> webElements = elements
                 .stream()
-                .filter(el -> isInViewport(el, banksAndAtmsPage.listContainer))
+                .map(SelenideElement::toWebElement)
                 .toList();
 
-        var highlightedBlocks = new ArrayList<SelenideElement>();
-
-        visibleBlocks.forEach(marker -> {
-            var classContent = marker.$x("./div").getAttribute("class");
-            if (classContent.contains("active")) {
-                highlightedBlocks.add(marker);
-            }
-        });
-
-        return highlightedBlocks;
-    }
-
-    // other ways i tried of checking elements in the list on the left part of the screen
-    // couldn't grab only visible elements so i had to go another way
-    private boolean isInViewport(SelenideElement el, SelenideElement container) {
-        return executeJavaScript(
+        // executeJavascript only understands Selenium's WebElement and
+        // numbers in js are always 64-bit floating-point, hence Long
+        List<Long> indices = executeJavaScript(
                 """
-                const el = arguments[0];
-                const container = arguments[1];
-                const elRect = el.getBoundingClientRect();
+                const container = arguments[0];
+                const elements = arguments[1];
                 const cRect = container.getBoundingClientRect();
-        
-                return elRect.top >= cRect.top &&
-                       elRect.bottom <= cRect.bottom;
+    
+                return Array.from(elements)
+                    .map((el, index) => {
+                        const elRect = el.getBoundingClientRect();
+                        return {
+                            index: index,
+                            inView: elRect.top >= cRect.top && elRect.bottom <= cRect.bottom
+                        };
+                    })
+                    .filter(item => item.inView)
+                    .map(item => item.index);
                 """,
-                el, container
+                container.toWebElement(), webElements
         );
+
+        // map indices back to selenide elements
+        List<SelenideElement> result = new ArrayList<>();
+        for (var index : indices) {
+            result.add(elements.get(index.intValue()));
+        }
+
+        return result;
     }
 }

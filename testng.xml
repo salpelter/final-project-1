@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="">
+<suite name="desktopAndMobile" thread-count="2" parallel="classes">
+    <test name="desktop">
+        <parameter name="isMobile" value="false"></parameter>
+        <classes>
+            <class name="ge.tbc.testautomation.tests.FindClosestLocation"></class>
+            <class name="ge.tbc.testautomation.tests.ConvertCurrencies"></class>
+        </classes>
+    </test>
 
+    <test name="mobile">
+        <parameter name="isMobile" value="true"></parameter>
+        <classes>
+            <class name="ge.tbc.testautomation.tests.FindClosestLocation"></class>
+            <class name="ge.tbc.testautomation.tests.ConvertCurrencies"></class>
+        </classes>
+    </test>
 </suite>
