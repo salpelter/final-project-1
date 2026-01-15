@@ -7,7 +7,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.Assert;
 import ge.tbc.testautomation.pages.BranchesAndAtmsPage;
-import org.testng.SkipException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -23,7 +22,9 @@ public class BranchesAndAtmsSteps {
     Random rand = new Random();
 
     public BranchesAndAtmsSteps verifyLocationDotPresence() {
-        branchesAndAtmsPage.currentLocationDot.should(exist, Duration.ofSeconds(12));
+        // i had to increase the timeout many times during parallel testing
+        // throughout the project so i decided just to increase it by a large amount
+        branchesAndAtmsPage.currentLocationDot.should(exist, Duration.ofSeconds(20));
 
         return this;
     }
@@ -64,9 +65,11 @@ public class BranchesAndAtmsSteps {
             var marker = nearbyMapMarkers.get(rand.nextInt(nearbyMapMarkers.size()));
 
             if (tryClick(marker)) {
-                // all things that distinguish markers (like text or color) are contained in a
-                // closed shadow-root, i couldn't access it to make sure that
-                // actually the correct marker is highlighted
+                // all things that distinguish markers (like text or color) are contained
+                // in a closed shadow-root, i couldn't access it to make sure that
+                // actually the correct marker is highlighted therefore i'm just
+                // checking that a highlighted entry in the list
+                // (or a card outline in case of mobile) exist on the page
                 if (branchesAndAtmsPage.highlightedMarkerInformationBlock.exists()) {
                     break;
                 }
@@ -93,7 +96,8 @@ public class BranchesAndAtmsSteps {
         int citiesCount = branchesAndAtmsPage.cities.size();
 
         var randomCity = branchesAndAtmsPage.cities.get(rand.nextInt(citiesCount));
-        randomCity.scrollIntoView(true);
+        randomCity.scrollIntoView(
+                ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.start));
         randomCity.click();
 
         return this;

@@ -1,12 +1,9 @@
 package ge.tbc.testautomation.steps;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ScrollIntoViewOptions;
 import ge.tbc.testautomation.pages.OffersPage;
 
 import java.time.Duration;
-import java.util.Collection;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -26,17 +23,25 @@ public class OffersSteps {
     }
 
     public OffersSteps clickOnAllOffers() {
-        offersPage.allOffersLink.shouldBe(visible, Duration.ofSeconds(6)).click();
+        offersPage.allOffersLink
+                .shouldBe(visible, Duration.ofSeconds(6))
+                .click();
 
         return this;
     }
 
     public OffersSteps pickRandomOffer() {
-        offersPage.offerCards.first().shouldBe(visible, Duration.ofSeconds(8));
+        offersPage.offerCards.first()
+                .shouldBe(visible, Duration.ofSeconds(15));
+
         var offersCount = offersPage.offerCards.size();
 
-        var offerCard = offersPage.offerCards.get(rand.nextInt(offersCount));
-        offerCard.scrollIntoView(ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center));
+        var offerCard = offersPage.offerCards
+                .get(rand.nextInt(offersCount));
+
+        offerCard.scrollIntoView(
+                ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center));
+
         offerCard.click();
 
         return this;

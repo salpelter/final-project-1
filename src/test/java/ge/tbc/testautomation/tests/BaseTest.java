@@ -1,9 +1,8 @@
 package ge.tbc.testautomation.tests;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
-import ge.tbc.testautomation.constants.Urls;
+import ge.tbc.testautomation.constants.Constants;
 import ge.tbc.testautomation.steps.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,7 +37,7 @@ public class BaseTest {
 
         // screen size
         if (isMobile) {
-            options.addArguments("--window-size=390,844");
+            options.addArguments("--window-size=430,932");
             options.setExperimentalOption(
                     "mobileEmulation",
                     java.util.Map.of(
@@ -56,7 +55,7 @@ public class BaseTest {
         WebDriver driver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(driver);
 
-        open(Urls.HOME_PAGE_URL);
+        open(Constants.HOME_PAGE_URL);
 
         if (!isMobile)
         {

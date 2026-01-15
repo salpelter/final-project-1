@@ -5,17 +5,20 @@ import ge.tbc.testautomation.pages.CommonPage;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.open;
 
 public class CommonSteps {
     CommonPage commonPage = new CommonPage();
 
     public CommonSteps openMenu(boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileHamburgerMenuIcon.shouldBe(visible).click();
+            commonPage.mobileHamburgerMenuIcon
+                    .shouldBe(visible)
+                    .click();
         }
         else {
-            commonPage.personalMegaMenu.shouldBe(visible).hover();
+            commonPage.personalMegaMenu
+                    .shouldBe(visible)
+                    .hover();
         }
 
         return this;
@@ -91,7 +94,8 @@ public class CommonSteps {
     }
 
     public CommonSteps verifyDenyCookiesButtonVisibility() {
-        commonPage.denyCookiesButton.shouldBe(visible, Duration.ofSeconds(5));
+        commonPage.denyCookiesButton
+                .shouldBe(visible, Duration.ofSeconds(8));
 
         return this;
     }

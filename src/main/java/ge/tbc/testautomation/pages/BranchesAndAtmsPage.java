@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BranchesAndAtmsPage {
     public SelenideElement currentLocationDot =
-            $("google-map svg > circle.solid-dot");
+            $x("//gmp-advanced-marker[@position][not(@role)]");
     public ElementsCollection mapMarkers =
             $$x("//gmp-advanced-marker[contains(@slot, 'internal-visible-gmp-advanced-markers')]");
     public SelenideElement highlightedMarkerInformationBlock =

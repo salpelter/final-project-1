@@ -1,10 +1,14 @@
 package ge.tbc.testautomation.steps;
 
+import com.codeborne.selenide.ScrollIntoViewOptions;
 import ge.tbc.testautomation.constants.Constants;
 import ge.tbc.testautomation.pages.ExchangeRatesPage;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.Random;
+
+import static com.codeborne.selenide.Condition.visible;
 
 public class ExchangeRatesSteps {
     ExchangeRatesPage exchangeRatesPage = new ExchangeRatesPage();
@@ -14,9 +18,13 @@ public class ExchangeRatesSteps {
         var firstCurrencyDropdown = exchangeRatesPage.currencyDropdownButtons.get(0);
 
         firstCurrencyDropdown.click();
+
+        exchangeRatesPage.availableCurrencies.first().shouldBe(visible, Duration.ofSeconds(12));
         var currenciesCount = exchangeRatesPage.availableCurrencies.size();
 
-        exchangeRatesPage.availableCurrencies.get(rand.nextInt(currenciesCount)).click();
+        exchangeRatesPage.availableCurrencies
+                .get(rand.nextInt(currenciesCount))
+                .click();
 
         return this;
     }
@@ -26,6 +34,8 @@ public class ExchangeRatesSteps {
         var secondCurrencyDropdownButton = exchangeRatesPage.currencyDropdownButtons.get(1);
 
         firstCurrencyDropdownButton.click();
+
+        exchangeRatesPage.availableCurrencies.first().shouldBe(visible, Duration.ofSeconds(12));
         var currenciesCount = exchangeRatesPage.availableCurrencies.size();
 
         // in a list just in case
@@ -48,7 +58,10 @@ public class ExchangeRatesSteps {
                 secondCurrencyDropdownButton.click();
             }
 
-            var secondCurrency = exchangeRatesPage.availableCurrencies.get(rand.nextInt(currenciesCount));
+            var secondCurrency = exchangeRatesPage.availableCurrencies
+                    .get(rand.nextInt(currenciesCount))
+                    .scrollIntoView(ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center));
+
             var secondCurrencyText = secondCurrency.text();
 
             if (!secondCurrencyText.equals(firstCurrencyText)) {

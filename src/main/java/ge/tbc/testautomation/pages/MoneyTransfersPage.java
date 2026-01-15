@@ -13,7 +13,7 @@ public class MoneyTransfersPage {
     public SelenideElement countryDropdown =
             $x("//div[text()=' აირჩიე ქვეყანა ']//ancestor::tbcx-dropdown-selector//i");
     public ElementsCollection dropdownOptions =
-            $$("div tbcx-dropdown-popover-item");
+            $$x("//div/tbcx-dropdown-popover-item");
     public SelenideElement transferSumInput =
             $("#tbcx-text-input-1");
     public ElementsCollection transferFeeResults =

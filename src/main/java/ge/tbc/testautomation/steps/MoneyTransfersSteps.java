@@ -4,6 +4,7 @@ import com.codeborne.selenide.ScrollIntoViewOptions;
 import ge.tbc.testautomation.constants.Constants;
 import ge.tbc.testautomation.pages.MoneyTransfersPage;
 
+import java.time.Duration;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -13,8 +14,9 @@ public class MoneyTransfersSteps {
     Random rand = new Random();
 
     public MoneyTransfersSteps scrollToMoneyTransferFeesCalculator() {
-        moneyTransfersPage.moneyTransferFeesTab.scrollIntoView(
-                ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center))
+        moneyTransfersPage.moneyTransferFeesTab
+                .shouldBe(visible, Duration.ofSeconds(15))
+                .scrollIntoView(ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center))
                 .click();
 
         return this;
@@ -22,9 +24,14 @@ public class MoneyTransfersSteps {
 
     public MoneyTransfersSteps clickOnRandomCurrency() {
         moneyTransfersPage.currencyDropdown.click();
+
+        moneyTransfersPage.dropdownOptions.first().shouldBe(visible);
         var currencyCount = moneyTransfersPage.dropdownOptions.size();
 
-        moneyTransfersPage.dropdownOptions.get(rand.nextInt(currencyCount))
+        moneyTransfersPage.dropdownOptions.first().shouldBe(visible);
+        moneyTransfersPage.dropdownOptions
+                .get(rand.nextInt(currencyCount))
+                .scrollIntoView(ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center))
                 .click();
 
         return this;
@@ -48,9 +55,14 @@ public class MoneyTransfersSteps {
 
     public MoneyTransfersSteps clickOnRandomCountry() {
         moneyTransfersPage.countryDropdown.click();
+
+        moneyTransfersPage.dropdownOptions.first().shouldBe(visible, Duration.ofSeconds(12));
         var countryCount = moneyTransfersPage.dropdownOptions.size();
 
-        moneyTransfersPage.dropdownOptions.get(rand.nextInt(countryCount))
+        moneyTransfersPage.dropdownOptions.first().shouldBe(visible);
+        moneyTransfersPage.dropdownOptions
+                .get(rand.nextInt(countryCount))
+                .scrollIntoView(ScrollIntoViewOptions.instant().block(ScrollIntoViewOptions.Block.center))
                 .click();
 
         return this;
