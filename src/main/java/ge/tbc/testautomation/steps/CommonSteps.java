@@ -1,14 +1,11 @@
 package ge.tbc.testautomation.steps;
 
-import com.codeborne.selenide.ex.ElementNotFound;
-import ge.tbc.testautomation.constants.Urls;
 import ge.tbc.testautomation.pages.CommonPage;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class CommonSteps {
     CommonPage commonPage = new CommonPage();
@@ -26,21 +23,51 @@ public class CommonSteps {
 
     public CommonSteps clickOnExchangeRatesPageLink(Boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileMegaMenuExchangeRatesLink.shouldBe(visible).click();
+            commonPage.mobileMegaMenuExchangeRatesLinks
+                    .filter(visible)
+                    .first()
+                    .click();
         }
         else {
-            commonPage.megaMenuExchangeRatesLink.shouldBe(visible).click();
+            commonPage.megaMenuExchangeRatesLinks
+                    .filter(visible)
+                    .first()
+                    .click();
         }
+
+        return this;
+    }
+
+    public CommonSteps unfoldOtherProductsSection() {
+        commonPage.mobileMegaMenuOtherProductsSections
+                .filter(visible)
+                .first()
+                .click();
+
+        return this;
+    }
+
+    public CommonSteps clickOnMoneyTransfersPageLink() {
+        commonPage.megaMenuMoneyTransfersLinks
+                .filter(visible)
+                .first()
+                .click();
 
         return this;
     }
 
     public CommonSteps clickOnAddressesPageLink(Boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileMegaMenuAddressesLink.shouldBe(visible).click();
+            commonPage.mobileMegaMenuAddressesLinks
+                    .filter(visible)
+                    .first()
+                    .click();
         }
         else {
-            commonPage.megaMenuAddressesLink.shouldBe(visible).click();
+            commonPage.megaMenuAddressesLinks
+                .filter(visible)
+                .first()
+                .click();
         }
 
         return this;
@@ -48,10 +75,16 @@ public class CommonSteps {
 
     public CommonSteps clickOnOffersPageLink(Boolean isMobile) {
         if (isMobile) {
-            commonPage.mobileMegaMenuOffersLink.shouldBe(visible).click();
+            commonPage.mobileMegaMenuOffersLinks
+                .filter(visible)
+                .first()
+                .click();
         }
         else {
-            commonPage.megaMenuOffersLink.shouldBe(visible).click();
+            commonPage.megaMenuOffersLinks
+                .filter(visible)
+                .first()
+                .click();
         }
 
         return this;

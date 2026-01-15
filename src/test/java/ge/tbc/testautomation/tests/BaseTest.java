@@ -4,14 +4,11 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import ge.tbc.testautomation.constants.Urls;
-import ge.tbc.testautomation.steps.BranchesAndAtmsSteps;
-import ge.tbc.testautomation.steps.ExchangeRatesSteps;
-import ge.tbc.testautomation.steps.OffersSteps;
+import ge.tbc.testautomation.steps.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
-import ge.tbc.testautomation.steps.CommonSteps;
 
 import java.util.HashMap;
 
@@ -27,6 +24,7 @@ public class BaseTest {
     BranchesAndAtmsSteps branchesAndAtmsSteps;
     ExchangeRatesSteps exchangeRatesSteps;
     OffersSteps offersSteps;
+    MoneyTransfersSteps moneyTransfersSteps;
 
     @Parameters("isMobile")
     @BeforeClass

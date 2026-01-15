@@ -26,7 +26,7 @@ public class OffersSteps {
     }
 
     public OffersSteps clickOnAllOffers() {
-        offersPage.allOffersLink.shouldBe(visible).click();
+        offersPage.allOffersLink.shouldBe(visible, Duration.ofSeconds(6)).click();
 
         return this;
     }

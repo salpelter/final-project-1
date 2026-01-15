@@ -5,20 +5,22 @@
     <test name="desktop">
         <parameter name="isMobile" value="false" />
         <classes>
-            <class name="ge.tbc.testautomation.tests.FindNearbyLocation" />
-            <class name="ge.tbc.testautomation.tests.FindOpenBranch" />
-            <class name="ge.tbc.testautomation.tests.ConvertCurrencies" />
-            <class name="ge.tbc.testautomation.tests.ViewOffers" />
+            <class name="ge.tbc.testautomation.tests.NearbyLocationsTest" />
+            <class name="ge.tbc.testautomation.tests.OpenBranchesTest" />
+            <class name="ge.tbc.testautomation.tests.CurrencyConversionTest" />
+            <class name="ge.tbc.testautomation.tests.OffersTest" />
+            <class name="ge.tbc.testautomation.tests.MoneyTransferFeesTest" />
         </classes>
     </test>
 
     <test name="mobile">
         <parameter name="isMobile" value="true" />
         <classes>
-            <class name="ge.tbc.testautomation.tests.FindNearbyLocation" />
-            <class name="ge.tbc.testautomation.tests.FindOpenBranch" />
-            <class name="ge.tbc.testautomation.tests.ConvertCurrencies" />
-            <class name="ge.tbc.testautomation.tests.ViewOffers" />
+            <class name="ge.tbc.testautomation.tests.NearbyLocationsTest" />
+            <class name="ge.tbc.testautomation.tests.OpenBranchesTest" />
+            <class name="ge.tbc.testautomation.tests.CurrencyConversionTest" />
+            <class name="ge.tbc.testautomation.tests.OffersTest" />
+            <class name="ge.tbc.testautomation.tests.MoneyTransferFeesTest" />
         </classes>
     </test>
 </suite>

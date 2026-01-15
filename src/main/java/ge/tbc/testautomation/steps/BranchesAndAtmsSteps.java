@@ -23,13 +23,13 @@ public class BranchesAndAtmsSteps {
     Random rand = new Random();
 
     public BranchesAndAtmsSteps verifyLocationDotPresence() {
-        branchesAndAtmsPage.currentLocationDot.should(exist, Duration.ofSeconds(10));
+        branchesAndAtmsPage.currentLocationDot.should(exist, Duration.ofSeconds(12));
 
         return this;
     }
 
     public BranchesAndAtmsSteps scrollToMap(boolean isMobile) {
-        branchesAndAtmsPage.map.shouldBe(visible, Duration.ofSeconds(8));
+        branchesAndAtmsPage.map.shouldBe(visible, Duration.ofSeconds(12));
 
         if (isMobile) {
             branchesAndAtmsPage.map.scrollIntoView(

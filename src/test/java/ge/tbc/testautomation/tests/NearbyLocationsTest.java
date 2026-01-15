@@ -5,8 +5,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-@Test(groups = {"Find an open branch in a city (SCRUM-T28)"})
-public class FindOpenBranch extends BaseTest {
+@Test(groups = {"Find a nearby branch/ATM (SCRUM-T26)"})
+public class NearbyLocationsTest extends BaseTest {
     @BeforeClass
     public void initializeSteps() {
         branchesAndAtmsSteps = new BranchesAndAtmsSteps();
@@ -20,34 +20,16 @@ public class FindOpenBranch extends BaseTest {
                 .clickOnAddressesPageLink(isMobile);
     }
 
-    @Test(priority = 2, dependsOnMethods = "goToBranchesAndAtmsPage")
-    public void selectCity() {
-        branchesAndAtmsSteps
-                .clickOnCityDropdown()
-                .clickOnRandomCity();
-    }
-
-    @Test(priority = 3, dependsOnMethods = "selectCity")
-    public void filterByBranches() {
-        branchesAndAtmsSteps
-                .clickOnBranchesFilter();
-    }
-
     @Parameters("isMobile")
-    @Test(priority = 4, dependsOnMethods = "filterByBranches")
-    public void filterByOpenBranches(boolean isMobile) {
+    @Test(priority = 2, dependsOnMethods = "goToBranchesAndAtmsPage")
+    public void findNearbyLocation(boolean isMobile) {
         branchesAndAtmsSteps
                 .scrollToMap(isMobile)
-                .clickOnOpenFilter();
-    }
-
-    @Test(priority = 5, dependsOnMethods = "filterByOpenBranches")
-    public void selectBranch() {
-        branchesAndAtmsSteps
+                .verifyLocationDotPresence()
                 .clickOnRandomVisibleMapMarker();
     }
 
-    @Test(priority = 6, dependsOnMethods = "selectBranch")
+    @Test(priority = 3, dependsOnMethods = "findNearbyLocation")
     public void verifyLocationHighlighted() {
         branchesAndAtmsSteps
                 .verifyMarkerInfoHighlighted();

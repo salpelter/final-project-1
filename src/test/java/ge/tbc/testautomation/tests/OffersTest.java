@@ -6,7 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 @Test(groups = {"View offers (SCRUM-T29)"})
-public class ViewOffers extends BaseTest {
+public class OffersTest extends BaseTest {
     @BeforeClass
     public void initializeSteps() {
         offersSteps = new OffersSteps();
